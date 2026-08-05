@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Effect Folder Organizer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>Effect Folder Organizer</h1>
+      <p id="status-message" class="status-message" role="status"></p>
+    </header>
+
+    <section class="panel" id="scan-panel">
+      <button id="scan-button" class="btn btn-primary">スキャン開始</button>
+      <div id="scan-progress" class="progress hidden">
+        <div class="progress-bar"><div id="scan-progress-fill" class="progress-fill"></div></div>
+        <span id="scan-progress-label">0%</span>
+      </div>
+    </section>
+
+    <section class="panel" id="list-panel">
+      <div class="list-toolbar">
+        <input id="search-input" type="search" placeholder="エフェクトを検索..." />
+        <select id="category-filter">
+          <option value="">すべてのカテゴリ</option>
+        </select>
+        <button id="export-csv-button" class="btn btn-secondary" disabled>CSV出力</button>
+        <button id="export-json-button" class="btn btn-secondary" disabled>JSON出力</button>
+      </div>
+      <table id="effect-table" class="effect-table">
+        <thead>
+          <tr>
+            <th data-sort-key="displayName">エフェクト名</th>
+            <th data-sort-key="category">カテゴリ</th>
+            <th data-sort-key="usageCount">使用数</th>
+          </tr>
+        </thead>
+        <tbody id="effect-table-body">
+          <tr class="empty-row"><td colspan="3">スキャンするとここに一覧が表示されます</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel" id="assist-panel">
+      <h2>整理アシスタント</h2>
+      <label for="case-name-input">案件名</label>
+      <input id="case-name-input" type="text" placeholder="例: 案件A_エフェクト集" />
+      <div class="assist-actions">
+        <button id="generate-checklist-button" class="btn btn-primary" disabled>チェックリスト作成</button>
+        <button id="copy-checklist-button" class="btn btn-secondary" disabled>クリップボードにコピー</button>
+        <button id="save-profile-button" class="btn btn-secondary" disabled>プロファイル保存</button>
+        <button id="load-profile-button" class="btn btn-secondary">プロファイル読込</button>
+      </div>
+      <p class="assist-hint">
+        Premiereの「エフェクト」パネルで右クリック →「新規カスタムビン」を選び、
+        下のチェックリストの順にエフェクトをドラッグして整理してください。
+        （現行のPremiere Pro UXP/CEP APIには、エフェクトパネルへフォルダを自動作成するAPIが公開されていないため、
+        この工程は手動で行う必要があります）
+      </p>
+      <pre id="checklist-output" class="checklist-output hidden"></pre>
+    </section>
+  </div>
+
+  <script src="src/utils/logger.js"></script>
+  <script src="src/utils/parser.js"></script>
+  <script src="src/modules/ProjectAnalyzer.js"></script>
+  <script src="src/modules/EffectListManager.js"></script>
+  <script src="src/modules/OrganizeAssistant.js"></script>
+  <script src="src/modules/UIController.js"></script>
+  <script src="src/main.js"></script>
+</body>
+</html>

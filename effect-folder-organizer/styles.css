@@ -1,0 +1,172 @@
+:root {
+  --efo-bg: #2d2d2d;
+  --efo-panel-bg: #383838;
+  --efo-text: #e6e6e6;
+  --efo-muted: #a0a0a0;
+  --efo-accent: #4a9eff;
+  --efo-danger: #ff6b6b;
+  --efo-success: #5ec26a;
+  --efo-border: #4a4a4a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Yu Gothic", "Hiragino Sans", "Noto Sans JP", sans-serif;
+  background: var(--efo-bg);
+  color: var(--efo-text);
+  font-size: 13px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+}
+
+.app-header h1 {
+  font-size: 15px;
+  margin: 0 0 4px 0;
+}
+
+.status-message {
+  min-height: 16px;
+  font-size: 12px;
+  color: var(--efo-muted);
+}
+
+.status-message.error {
+  color: var(--efo-danger);
+}
+
+.status-message.success {
+  color: var(--efo-success);
+}
+
+.panel {
+  background: var(--efo-panel-bg);
+  border: 1px solid var(--efo-border);
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn {
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btn-primary {
+  background: var(--efo-accent);
+  color: #fff;
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #555;
+  color: var(--efo-text);
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress.hidden,
+.checklist-output.hidden {
+  display: none;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 6px;
+  background: #555;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--efo-accent);
+  transition: width 0.15s ease;
+}
+
+.list-toolbar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.list-toolbar input,
+.list-toolbar select,
+#case-name-input {
+  flex: 1;
+  min-width: 120px;
+  background: #2a2a2a;
+  border: 1px solid var(--efo-border);
+  color: var(--efo-text);
+  border-radius: 4px;
+  padding: 5px 8px;
+}
+
+.effect-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.effect-table th,
+.effect-table td {
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--efo-border);
+}
+
+.effect-table th {
+  cursor: pointer;
+  color: var(--efo-muted);
+  user-select: none;
+}
+
+.empty-row td {
+  color: var(--efo-muted);
+  text-align: center;
+}
+
+.assist-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.assist-hint {
+  font-size: 11px;
+  color: var(--efo-muted);
+  line-height: 1.5;
+}
+
+.checklist-output {
+  background: #1f1f1f;
+  padding: 8px;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  font-size: 11px;
+  max-height: 200px;
+  overflow-y: auto;
+}

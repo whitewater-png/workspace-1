@@ -1,0 +1,17 @@
+{
+  "name": "effect-folder-organizer",
+  "version": "0.1.0",
+  "description": "Premiere Pro UXPパネル: プロジェクト内の使用エフェクトを自動検出・一覧化・エクスポートするツール",
+  "private": true,
+  "main": "src/main.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint src"
+  },
+  "devDependencies": {
+    "@adobe/premierepro": "^26.3.0",
+    "@adobe/eslint-plugin-premierepro": "^26.3.0",
+    "eslint": "^9.0.0",
+    "jest": "^29.7.0"
+  }
+}
