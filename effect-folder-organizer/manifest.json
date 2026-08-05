@@ -34,7 +34,7 @@
   ],
   "requiredPermissions": {
     "localFileSystem": "request",
-    "clipboard": "readAndWrite"
+    "clipboard": "write"
   },
   "icons": [
     {

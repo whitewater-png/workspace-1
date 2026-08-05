@@ -39,6 +39,27 @@ describe("parser.toCSV", () => {
     expect(lines[1]).toContain('"Text, ""Fancy"""');
     expect(lines[1]).toContain('"スタイライズ\n改行"');
   });
+
+  test("neutralizes leading formula-trigger characters (CSV injection guard)", () => {
+    const dangerous = ["=CMD('/bin/sh')", "+1+1", "-1+1", "@SUM(A1)"];
+    for (const value of dangerous) {
+      const field = parser.escapeCSVField(value);
+      expect(field.startsWith("'")).toBe(true);
+      expect(field).toBe(`'${value}`);
+    }
+  });
+
+  test("formula guard still applies when the field also needs comma-quoting", () => {
+    // The field is wrapped in double quotes per CSV syntax (it contains a
+    // comma), but the leading apostrophe guard must survive inside the quotes
+    // so spreadsheet apps still treat the unwrapped value as text.
+    const field = parser.escapeCSVField("@SUM(1,1)");
+    expect(field).toBe('"\'@SUM(1,1)"');
+  });
+
+  test("does not alter benign values that merely contain a hyphen", () => {
+    expect(parser.escapeCSVField("案件A-エフェクト集")).toBe("案件A-エフェクト集");
+  });
 });
 
 describe("parser.toJSON", () => {

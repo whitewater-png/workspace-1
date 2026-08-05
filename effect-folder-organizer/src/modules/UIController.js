@@ -88,6 +88,13 @@
       return div.innerHTML;
     }
 
+    // Strips characters that are invalid or path-meaningful in file names
+    // (path separators, drive/volume separators, control characters) so a
+    // free-text case name can't be misread as a path segment by the OS.
+    function sanitizeFileNameSegment(name) {
+      return name.replace(/[\\/:*?"<>|\x00-\x1f]/g, "_").trim() || "無題の案件";
+    }
+
     async function handleScan() {
       el.scanButton.disabled = true;
       el.progressWrap.classList.remove("hidden");
@@ -155,7 +162,7 @@
       const content = organizeAssistant.serializeProfile(profile);
       try {
         const saved = await effectListManager.exportToFile(storage, {
-          fileName: `${caseName}.efoprofile.json`,
+          fileName: `${sanitizeFileNameSegment(caseName)}.efoprofile.json`,
           content,
         });
         setStatus(saved ? "プロファイルを保存しました" : "保存をキャンセルしました", saved ? "success" : undefined);

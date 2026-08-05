@@ -55,8 +55,19 @@
     return [header, ...rows].map((r) => r.join(",")).join("\r\n");
   }
 
+  // Characters that Excel/Numbers/Sheets interpret as the start of a formula.
+  // Effect display names originate from the opened .prproj (including
+  // third-party plugin names), so a crafted project handed off by another
+  // party could otherwise smuggle a formula into the exported CSV.
+  const FORMULA_TRIGGER_CHARS = ["=", "+", "-", "@", "\t", "\r"];
+
   function escapeCSVField(value) {
-    const str = String(value ?? "");
+    let str = String(value ?? "");
+    if (FORMULA_TRIGGER_CHARS.some((c) => str.startsWith(c))) {
+      // A leading apostrophe forces text interpretation in spreadsheet apps
+      // without altering the visible cell value.
+      str = `'${str}`;
+    }
     if (/[",\r\n]/.test(str)) {
       return `"${str.replace(/"/g, '""')}"`;
     }
